@@ -3,16 +3,6 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 
-;; Use the 'google' package by default, if running in corp.
-(when (require 'google nil t)
-  (use-package google3-format
-	       :commands (google3-format-buffer)
-	       :ensure nil
-	       :hook ((c-mode c++-mode markdown-mode) .
-		      (lambda ()
-			(add-hook 'before-save-hook (lambda () (google3-format-buffer nil))
-				  nil 'local)))))
-
 ;; Add all custom configs.
 (mapc (lambda (f) (load-file f)) (directory-files "~/.emacs.d/config" t "\\.el$"))
 

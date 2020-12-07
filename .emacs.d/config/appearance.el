@@ -26,3 +26,13 @@
 ;; Monokai theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'monokai t)
+
+;; Add line and col numbers to modeline
+(column-number-mode 1)
+(line-number-mode 1)
+
+;; smart-line-mode settings
+(setq sml/show-encoding nil)
+(setq sml/theme 'dark)
+(setq sml/no-confirm-load-theme t)
+(sml/setup)

@@ -1,6 +1,7 @@
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
+
 ;;
 ;; Basic keybindings.
 ;;
@@ -8,6 +9,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (setq org-log-done t)
+
 
 ;;
 ;; Capture templates.
@@ -36,10 +38,10 @@
     ("p" "Project plan & todo list" plain
      (file (lambda () (ct-generate-plain-template "~/org/projects" "work, projects")))
      "%(format \"#+TITLE: %s\n#+STAMP: %s\n#+FILETAGS: %s\n\" ct-capture-name ct-capture-date ct-capture-tags)\n")
-    ("i" "Instance of a recurring meeting" item
+    ("i" "(WIP) Instance of a recurring meeting" item
      (function (lambda () (ct-create-new-meeting-instance "~/org/meetings/recurring/"))))))
 
-;; Make captures fullscreen, and make sure the previous buffer is restored on exit.
+;; make captures fullscreen, and make sure the previous buffer is restored on exit.
 (defvar ct-org-capture-before-config nil
   "Window configuration before `org-capture'.")
 
@@ -49,7 +51,7 @@
 
 (defun ct-org-capture-cleanup ()
   "Clean up the frame created while capturing via org-protocol."
-  ;; In case we run capture from emacs itself and not an external app,
+  ;; in case we run capture from emacs itself and not an external app,
   ;; we want to restore the old window config
   (when ct-org-capture-before-config
     (set-window-configuration ct-org-capture-before-config))
@@ -57,7 +59,7 @@
     (when (equal name "org-protocol-capture")
         (delete-frame))))
 
-;;(add-hook 'org-capture-after-finalize-hook 'ct-org-capture-cleanup)
+(add-hook 'org-capture-after-finalize-hook 'ct-org-capture-cleanup)
 (add-hook 'org-capture-mode-hook 'delete-other-windows)
 
 
@@ -71,24 +73,39 @@
 (setq org-agenda-span 30
       org-agenda-start-on-weekday nil
       org-agenda-start-day "-3d")
-(setq org-agenda-window-setup "only-window") ; try to force as many agenda windows fullscreen as possible
-(setq org-deadline-warning-days 0) ; don't show reminders for upcoming deadlines.
+;; try to force as many agenda windows fullscreen as possible.
+(setq org-agenda-window-setup "only-window")
+;; don't show reminders for upcoming deadlines.
+(setq org-deadline-warning-days 0)
+
 
 ;;
 ;; Appearance.
 ;;
-(setq org-startup-folded "content") ; unfold everything on startup.
-(setq org-hide-leading-stars t) ; hide all starts except the rightmost one.
-(setq org-log-done 'nil) ; don't display DONE date/time after completing a todo
-(setq org-return-follows-link t) ; pressing RET on a link follows it
-(add-hook 'org-follow-link-hook 'delete-other-windows) ; following a link is fullscreen
-; Specify how sub-bullets are demoted
+;; unfold everything on startup.
+(setq org-startup-folded "content")
+;; hide all starts except the rightmost one.
+(setq org-hide-leading-stars t)
+;; don't display DONE date/time after completing a todo.
+(setq org-log-done 'nil)
+;; pressing RET on a link follows it
+(setq org-return-follows-link t)
+;; following a link is fullscreen
+(add-hook 'org-follow-link-hook 'delete-other-windows)
+;; specify how sub-bullets are demoted
 (setq org-list-demote-modify-bullet '(("1."  . "-")
                                       ("-"  . "-")))
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
-(setf org-blank-before-new-entry '((heading . nil) (plain-list-item . nil))) ; don't add newlines before headings and list items.
-(setq org-cycle-separator-lines -1) ; don't consider newlines as content when folding.
+      '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCEL(c)")))
+;; don't add newlines before headings and list items.
+(setf org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
+;; don't consider newlines as content when folding.
+(setq org-cycle-separator-lines -1)
+;; TODO: this is a temporary hack to make list items in weekly.org more readable.
+;; ideally we'd specify some contextual conditions under which we make the foreground white.
+(custom-theme-set-faces 'user
+                        `(org-level-3 ((t (:foreground "white")))))
+
 
 ;;
 ;; Deft setup for easy org file searching.

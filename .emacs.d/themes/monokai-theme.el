@@ -150,8 +150,7 @@ Also affects 'linum-mode' background."
   :type 'string
   :group 'monokai)
 
-;(defcustom monokai-background "#272822"
-(defcustom monokai-background "#FF0000"
+(defcustom monokai-background "#272822"
   "Adaptive colors - background"
   :type 'string
   :group 'monokai)
@@ -292,8 +291,8 @@ Also affects 'linum-mode' background."
        (monokai-256-gray-l         "#707070")
        ;; Adaptive colors
        (monokai-256-foreground     "#F5F5F5")
-       ;(monokai-256-background     "#1B1E1C")
-       (monokai-256-background     nil)
+       (monokai-256-background     "#1B1E1C")
+       ;(monokai-256-background     nil)
        (monokai-256-comments       "#8B8878")
        (monokai-256-emphasis       "#FFFAFA")
        (monokai-256-line-number    "#8F908A")
@@ -4437,9 +4436,9 @@ Also affects 'linum-mode' background."
       (,monokai-256-class (:foreground ,monokai-256-comments))))
 
    `(org-date
-     ((,monokai-class (:foreground ,monokai-blue
+     ((,monokai-class (:foreground ,monokai-comments;,monokai-blue
                                    :underline t))
-      (,monokai-256-class (:foreground ,monokai-256-blue
+      (,monokai-256-class (:foreground ,monokai-256-comments;,monokai-256-blue
                                         :underline t))))
 
    `(org-done
@@ -4521,9 +4520,9 @@ Also affects 'linum-mode' background."
                                      :foreground ,monokai-256-blue))))
 
    `(org-link
-     ((,monokai-class (:foreground ,monokai-blue
+     ((,monokai-class (:foreground nil;,monokai-blue
                                    :underline t))
-      (,monokai-256-class (:foreground ,monokai-256-blue
+      (,monokai-256-class (:foreground nil;,monokai-256-blue
                                         :underline t))))
 
    `(org-sexp-date

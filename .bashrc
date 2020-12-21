@@ -19,9 +19,13 @@ alias la='ls -A'
 alias l='ls -CF'
 alias emacs="emacs -nw"
 
+# some default environment variables
 export EDITOR="emacs -nw"
 export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 export HISTSIZE="INFINITE"
 export LC_CTYPE="en_US.UTF-8"
+
+# default PS1 (linux), can be overwritten in bash files inheriting from this one
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '

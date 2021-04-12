@@ -4466,10 +4466,10 @@ Also affects 'linum-mode' background."
    `(org-level-1
      ((,monokai-class (:inherit ,monokai-pitch
                                 :height ,monokai-height-plus-4
-                                :foreground ,monokai-orange))
+                                :foreground ,monokai-blue))
       (,monokai-256-class (:inherit ,monokai-pitch
                                      :height ,monokai-height-plus-4
-                                     :foreground ,monokai-256-orange))))
+                                     :foreground ,monokai-256-blue))))
 
    `(org-level-2
      ((,monokai-class (:inherit ,monokai-pitch

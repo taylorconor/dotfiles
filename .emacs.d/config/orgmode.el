@@ -62,6 +62,13 @@
 (add-hook 'org-capture-after-finalize-hook 'ct-org-capture-cleanup)
 (add-hook 'org-capture-mode-hook 'delete-other-windows)
 
+;; Make TODOs automatically reorder themselves upon state changes
+(defun ct-org-sort-todo-list ()
+  "Sort parent element in todo order."
+  (org-up-element)
+  (org-sort-entries nil ?o))
+
+(add-hook 'org-after-todo-state-change-hook 'ct-org-sort-todo-list)
 
 ;;
 ;; Agenda settings.

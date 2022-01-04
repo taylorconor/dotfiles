@@ -128,3 +128,8 @@
 (setq deft-current-sort-method 'mtime)
 (global-set-key (kbd "\C-cd") 'deft)
 (global-set-key (kbd "\C-cf") 'deft-find-file)
+
+;;
+;; Right-align tags
+;;
+(setq org-tags-column (- 5 (window-width)))

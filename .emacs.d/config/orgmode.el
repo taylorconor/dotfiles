@@ -32,14 +32,9 @@
   '(("m" "Meeting note" plain
      (file (lambda () (ct-generate-plain-template "~/org/meetings" "work, meetings")))
      "%(format \"#+TITLE: %s\n#+STAMP: %s\n#+FILETAGS: %s\n\" ct-capture-name ct-capture-date ct-capture-tags)\n* Agenda\n- [ ] \n\n* Notes\n\n* Follow-ups\n")
-    ("o" "1-1 meeting note (w/ reporting chain)" plain
-     (file (lambda () (ct-generate-plain-template "~/org/meetings/1-1" "work, meetings, 1-1")))
-     "%(format \"#+TITLE: %s\n#+STAMP: %s\n#+FILETAGS: %s\n\" ct-capture-name ct-capture-date ct-capture-tags)\n* Agenda\n- [ ] \n\n* Notes\n\n* Follow-ups\n")
     ("p" "Project plan & todo list" plain
      (file (lambda () (ct-generate-plain-template "~/org/projects" "work, projects")))
-     "%(format \"#+TITLE: %s\n#+STAMP: %s\n#+FILETAGS: %s\n\" ct-capture-name ct-capture-date ct-capture-tags)\n")
-    ("i" "(WIP) Instance of a recurring meeting" item
-     (function (lambda () (ct-create-new-meeting-instance "~/org/meetings/recurring/"))))))
+     "%(format \"#+TITLE: %s\n#+STAMP: %s\n#+FILETAGS: %s\n\" ct-capture-name ct-capture-date ct-capture-tags)\n")))
 
 ;; make captures fullscreen, and make sure the previous buffer is restored on exit.
 (defvar ct-org-capture-before-config nil
@@ -74,17 +69,16 @@
 ;; Agenda settings.
 ;;
 (setq org-agenda-files (list "~/org/weekly.org"
+                             "~/org/schedule.org"
                              "~/org/meetings"
                              "~/org/meetings/1-1"
                              "~/org/projects"))
 (setq org-agenda-span 30
-      org-agenda-start-on-weekday nil
-      org-agenda-start-day "-3d")
+      org-agenda-start-on-weekday nil)
 ;; try to force as many agenda windows fullscreen as possible.
 (setq org-agenda-window-setup "only-window")
 ;; don't show reminders for upcoming deadlines.
 (setq org-deadline-warning-days 0)
-
 
 ;;
 ;; Appearance.
@@ -104,6 +98,10 @@
                                       ("-"  . "-")))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCEL(c)")))
+(setq org-todo-keyword-faces
+ '(("TODO" . org-todo) ("WAIT" . "orange") ("DONE" . "green") ("CANCEL" . "green"))
+ )
+
 ;; don't add newlines before headings and list items.
 (setf org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
 ;; don't consider newlines as content when folding.
@@ -112,6 +110,8 @@
 ;; ideally we'd specify some contextual conditions under which we make the foreground white.
 (custom-theme-set-faces 'user
                         `(org-level-3 ((t (:foreground "white")))))
+;; Right-align tags
+(setq org-tags-column (- 5 (window-width)))
 
 
 ;;
@@ -130,6 +130,19 @@
 (global-set-key (kbd "\C-cf") 'deft-find-file)
 
 ;;
-;; Right-align tags
+;; Google calendar integration
 ;;
-(setq org-tags-column (- 5 (window-width)))
+(defun kill-url-browse-url-function (url &rest ignore)
+  (kill-new url)
+  (message "Killed: %s" url))
+(unless window-system
+  (setq  browse-url-browser-function 'kill-url-browse-url-function))
+(require 'org-gcal)
+(setq org-gcal-notify-p nil)
+(setq org-gcal-client-id "xxx"
+      org-gcal-client-secret "xxx"
+      org-gcal-file-alist '(("xxx" .  "~/org/schedule.org")))
+;; refresh the schedule file before rendering the agenda view
+(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-fetch) ))
+;; disable prompt on event removal
+(setq org-gcal-remove-api-cancelled-events t)

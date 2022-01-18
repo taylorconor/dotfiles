@@ -36,3 +36,6 @@
 (setq sml/theme 'dark)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
+
+;; always split temporary buffers horizontally, regardless of window size
+(setq split-width-threshold nil)

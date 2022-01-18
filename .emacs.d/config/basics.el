@@ -13,3 +13,8 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+
+;; clipetty to share clipboard over ssh
+(require 'clipetty)
+(global-clipetty-mode)
+(setq clipetty-tmux-ssh-tty "tmux show-environment SSH_TTY")

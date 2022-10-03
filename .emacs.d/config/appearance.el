@@ -11,14 +11,7 @@
 (set-face-foreground 'highlight nil)
 
 ;; enable line numbers for all files
-(global-linum-mode t)
-
-;; dynamic, right-aligned line numbers
-(defadvice linum-update-window (around linum-dynamic activate)
-  (let* ((w (length (number-to-string
-                     (count-lines (point-min) (point-max)))))
-         (linum-format (concat "%" (number-to-string w) "d ")))
-    ad-do-it))
+(global-display-line-numbers-mode t)
 
 ;; Enable syntax highlighting
 (global-font-lock-mode 1)

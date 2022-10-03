@@ -22,7 +22,5 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "M-o") 'smart-open-line)
 (global-set-key (kbd "M-O") 'smart-open-line-above)
 
-(global-set-key (kbd "C-x f") 'helm-find)
-
 ;; disable ctrl-z backgrounding shortcut
 (global-unset-key (kbd "C-z"))

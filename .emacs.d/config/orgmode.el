@@ -68,11 +68,12 @@
 ;;
 ;; Agenda settings.
 ;;
-(setq org-agenda-files (list "~/org/weekly.org"
-                             "~/org/schedule.org"
-                             "~/org/meetings"
-                             "~/org/meetings/1-1"
-                             "~/org/projects"))
+(setq org-agenda-files '("~/org/work.org"
+                         "~/org/personal.org"
+                         "~/org/autogen"
+                         "~/org/meetings"
+                         "~/org/meetings/1-1"
+                         "~/org/projects"))
 (setq org-agenda-span 30
       org-agenda-start-on-weekday nil)
 ;; try to force as many agenda windows fullscreen as possible.
@@ -93,7 +94,7 @@
 (setq org-return-follows-link t)
 ;; following a link is fullscreen
 (add-hook 'org-follow-link-hook 'delete-other-windows)
-;; specify how sub-bullets are demoted
+;; specify how sub-bullets are denoted
 (setq org-list-demote-modify-bullet '(("1."  . "-")
                                       ("-"  . "-")))
 (setq org-todo-keywords
@@ -101,12 +102,14 @@
 (setq org-todo-keyword-faces
  '(("TODO" . org-todo) ("WAIT" . "orange") ("DONE" . "green") ("CANCEL" . "green"))
  )
+;; set sub-bullet color
+'(org-level-3 ((t (:foreground "white"))))
 
 ;; don't add newlines before headings and list items.
 (setf org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
 ;; don't consider newlines as content when folding.
 (setq org-cycle-separator-lines -1)
-;; TODO: this is a temporary hack to make list items in weekly.org more readable.
+;; TODO: this is a temporary hack to make list items in work.org more readable.
 ;; ideally we'd specify some contextual conditions under which we make the foreground white.
 (custom-theme-set-faces 'user
                         `(org-level-3 ((t (:foreground "white")))))
@@ -141,7 +144,7 @@
 (setq org-gcal-notify-p nil)
 (setq org-gcal-client-id "xxx"
       org-gcal-client-secret "xxx"
-      org-gcal-file-alist '(("xxx" .  "~/org/schedule.org")))
+      org-gcal-file-alist '(("xxx" .  "~/org/autogen/gcal.org")))
 ;; refresh the schedule file before rendering the agenda view
 (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-fetch) ))
 ;; disable prompt on event removal

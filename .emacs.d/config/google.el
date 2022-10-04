@@ -1,6 +1,13 @@
 (require 'google)
 (require 'google3-mode)
 (require 'google-cc-extras)
+(require 'google-trailing-whitespace)
+(require 'google-cc-add-using)
+(require 'google3-display-citc-client)
+(require 'google3-build-cleaner)
+(require 'google-imports)
+(require 'google-critique)
+(require 'google-findings)
 
 ;; eglot code completion
 (require 'google3-eglot)
@@ -16,7 +23,6 @@
 (add-hook 'c++-mode-hook
           (lambda ()
             (add-hook 'before-save-hook #'google-clang-format-file nil :local)))
-(require 'google-trailing-whitespace)
 
 ;; rotate between file extensions
 (require 'rotate-among-files)

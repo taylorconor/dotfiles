@@ -3060,9 +3060,10 @@ Also affects 'linum-mode' background."
       (,monokai-256-class (:height ,monokai-height-plus-1))))
 
    ;; ivy
+   ;; taylorconor modified
    `(ivy-current-match
-     ((,monokai-class (:background ,monokai-gray :inherit bold))
-      (,monokai-256-class (:background ,monokai-gray-l :inherit bold))))
+     ((,monokai-class (:background ,monokai-highlight-line :inherit bold))
+      (,monokai-256-class (:background ,monokai-highlight-line :inherit bold))))
 
    `(ivy-minibuffer-match-face-1
      ((,monokai-class (:inherit bold))
@@ -3094,7 +3095,7 @@ Also affects 'linum-mode' background."
      ((,monokai-class (:background ,monokai-highlight-line))))
 
    `(swiper-match-face-1
-     ((,monokai-class (:background ,monokai-gray-d))))
+     ((,monokai-class (:foreground ,monokai-gray-d))))
 
    `(swiper-match-face-2
      ((,monokai-class (:background ,monokai-green))))

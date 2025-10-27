@@ -134,18 +134,19 @@
 
 ;;
 ;; Google calendar integration
+;; NOTE: I rarely use this anymore so it's disabled for now
 ;;
-(defun kill-url-browse-url-function (url &rest ignore)
-  (kill-new url)
-  (message "Killed: %s" url))
-(unless window-system
-  (setq  browse-url-browser-function 'kill-url-browse-url-function))
-(require 'org-gcal)
-(setq org-gcal-notify-p nil)
-(setq org-gcal-client-id "xxx"
-      org-gcal-client-secret "xxx"
-      org-gcal-file-alist '(("xxx" .  "~/org/autogen/gcal.org")))
-;; refresh the schedule file before rendering the agenda view
-(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-fetch) ))
-;; disable prompt on event removal
-(setq org-gcal-remove-api-cancelled-events t)
+;;(defun kill-url-browse-url-function (url &rest ignore)
+;;  (kill-new url)
+;;  (message "Killed: %s" url))
+;;(unless window-system
+;;  (setq  browse-url-browser-function 'kill-url-browse-url-function))
+;;(require 'org-gcal)
+;;(setq org-gcal-notify-p nil)
+;;(setq org-gcal-client-id "xxx"
+;;      org-gcal-client-secret "xxx"
+;;      org-gcal-file-alist '(("xxx" .  "~/org/autogen/gcal.org")))
+;;;; refresh the schedule file before rendering the agenda view
+;;(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-fetch) ))
+;;;; disable prompt on event removal
+;;(setq org-gcal-remove-api-cancelled-events t)
